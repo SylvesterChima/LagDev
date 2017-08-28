@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sylvester.lagdev.developer_details">
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="330dp"
+                android:id="@+id/imgAvatar"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"/>
+
+            <ProgressBar
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                style="?android:attr/progressBarStyle"
+                android:layout_centerInParent="true"
+                android:id="@+id/pbLoading"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblUserName"
+            android:textSize="20sp"
+            android:text="Name"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_public_black_24dp"
+                android:layout_marginRight="3dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblGitUrl"
+                android:textSize="20sp"
+                android:text="git url"/>
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Share this awesome developer"
+            android:id="@+id/btnShare"
+            android:onClick="Share"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
