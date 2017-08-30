@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,7 +32,8 @@ public class java_developers extends AppCompatActivity {
         setContentView(R.layout.activity_java_developers);
         listView = (ListView)findViewById(R.id.listStudents);
         mAPIService = ApiUtils.getAPIService();
-        getStudents();
+        getDevelopers("language:java location:lagos",100,1);
+        //getDevelopers(Integer.toString(1));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -41,12 +43,44 @@ public class java_developers extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            private int bufferItemCount = 50;
+            private int currentPage = 0;
+            private int itemCount = 0;
+            private boolean isLoading = true;
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+                if (totalItemCount < itemCount) {
+                    this.itemCount = totalItemCount;
+                    if (totalItemCount == 0) {
+                        this.isLoading = true;
+                    }
+                }
+
+                if (isLoading && (totalItemCount > itemCount)) {
+                    isLoading = false;
+                    itemCount = totalItemCount;
+                    currentPage++;
+                }
+                if (!isLoading && (totalItemCount - visibleItemCount)<=(firstVisibleItem + bufferItemCount)) {
+                    getDevelopers("language:java location:lagos",bufferItemCount,currentPage + 1);
+                    isLoading = true;
+                }
+            }
+        });
     }
 
-    public void getStudents(){
+
+    public void getDevelopers(String q, int per_page, int page){
         final ProgressDialog loading = ProgressDialog.show(this," ","Please wait...",false,false);
         //Retrofit method that fetches record from the github api
-        mAPIService.getDevelopers().enqueue(new Callback<mDevs>() {
+        mAPIService.getDevs(q,per_page,page).enqueue(new Callback<mDevs>() {
             @Override
             public void onResponse(Call<mDevs> call, Response<mDevs> response) {
                 if(response.isSuccessful()){
@@ -70,3 +104,5 @@ public class java_developers extends AppCompatActivity {
 
 
 }
+
+

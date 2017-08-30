@@ -63,7 +63,7 @@ public class developer_details extends AppCompatActivity {
         /* Add data to the intent, the receiving app will decide
         // what to do with it.*/
         share.putExtra(Intent.EXTRA_SUBJECT, "Github Profile");
-        share.putExtra(Intent.EXTRA_TEXT, "Check out this awesome developer" + devs.getLogin() + "," + devs.getHtml_url() +".");
+        share.putExtra(Intent.EXTRA_TEXT, "Check out this awesome developer" + devs.getLogin() + "," + devs.getHtml_url());
         startActivity(Intent.createChooser(share, "Share user github profile"));
     }
 }
